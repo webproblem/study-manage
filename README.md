@@ -1,8 +1,3 @@
-# hello-world
-## My first repository on GitHub
-> my Blog address:
-[http://www.cnblogs.com/yqx0605xi/](http://www.cnblogs.com/yqx0605xi/)
-
 ***
 ## 前端学习清单与计划 ##
 ### 学习清单
