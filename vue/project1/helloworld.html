@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-helloworld</title>
+	<script src="./vue2x.js"></script>
+	<!-- <script src="vue1.0.25.js"></script> -->
+	<link rel="stylesheet" href="style/demo.css">
+</head>
+<body>
+	<div id="app"  v-bind:title="messages">
+		{{messages}}
+		{{number + 1}}
+	</div>
+	<p>----------------------------------------------------------</p>
+	<!--bind 指令-->
+	<div id="app-2">
+		<span v-bind:title="message">
+			鼠标悬停几秒钟查看此处动态绑定的提示信息！
+		</span>
+	</div>
+	<p>----------------------------------------------------------</p>
+	<!--双向数据绑定-->
+	<div id="app-3">
+        <p>{{inputMessage}}</p>
+		<input type="text" v-model="inputMessage">
+	</div>
+	<p>----------------------------------------------------------</p>
+	<!--if 指令-->
+	<div id="app-4">
+		<h1>hello,vue.js</h1>
+		<h1 v-if="yes">Yes!</h1>
+		<h1 v-if="no">No!</h1>
+		<h1 v-if="age>30">Age:{{age}}</h1>
+		<h1 v-if="name.indexOf('cn')>-1">name:{{name}}</h1>
+	</div>
+    <p>----------------------------------------------------------</p>
+    <!--for 指令-->
+    <div id="app-5" v-bind:class="className">
+        <table>
+        	<thead>
+        		<tr>
+        			<th>Name</th>
+        			<th>Age</th>
+        			<th>Sex</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr v-for="data in people">
+        		    <td><span>{{data["name"]}}</span></td>
+        		    <td><span>{{data.age}}</span></td>
+        		    <td><span>{{data.sex}}</span></td>
+        		</tr>
+        	</tbody>
+        </table>
+    </div>
+    <p>----------------------------------------------------------</p>
+    <div id="app-6">
+    	<p><button v-bind:class="button1" v-on:click="functionButton1">按钮1</button></p>
+    	<p><button v-bind:class="button2" v-on:click="functionButton2('this is button2')">按钮2</button></p>
+    </div>
+    <p>----------------------------------------------------------</p>
+    <h1>Demo示例</h1>
+    <div id="app-demo1" :class="className">
+    	<div class="demo1-creat-wrap">
+    		<div class="form-group">
+	    	    <label>name:</label><input type="text" name="app-name" placeholder="请输入姓名" v-model="newPeople.name">
+	    	</div>
+	    	<div class="form-group">
+	    	    <label>age:</label><input type="text" name="app-age" placeholder="请输入年龄" v-model="newPeople.age">
+	    	</div>
+	    	<div class="form-group">
+	    	    <label>sex:</label>
+	    		<select name="app-sex" v-model="newPeople.sex" value="男">
+		    		<option value="男">男</option>
+		    		<option value="女">女</option>
+		    	</select>
+	    	</div>
+	    	<div class="button-wrap" @click="creatPerson">
+	    	    <label></label>
+	    		<button>Create</button>
+	    	</div>
+    	</div>
+
+    	<table>
+    		<thead>
+    			<tr>
+    				<th>Name</th>
+        			<th>Age</th>
+        			<th>Sex</th>
+        			<th>Delete</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr v-for="(data,index) in person">
+    				<td><span>{{data.name}}</span></td>
+        		    <td><span>{{data.age}}</span></td>
+        		    <td><span>{{data.sex}}</span></td>
+        		    <td :class="'demo-text-center'"><span class="button-wrap"><button @click="deletePerson(index)">Delete</button></span></td>
+    			</tr>
+    		</tbody>
+    	</table>
+    </div>
+    <p>----------------------------------------------------------</p>
+
+	<script>
+	    var exampleData = {
+	    	"messages": "hello world",
+	    	"number": 6
+	    };
+		var app1 = new Vue({
+			el: "#app",
+			data: exampleData
+		})
+		var app2 = new Vue({
+		  el: '#app-2',
+		  data: {
+		    message: '页面加载于 ' + new Date()
+		  }
+		})
+		var app3 = new Vue({
+			el: "#app-3",
+			data: {
+				inputMessage: "this is input"
+			}
+		})
+		var app4 = new Vue({
+			el: "#app-4",
+			data: {
+				"yes": true,
+				"no": false,
+				"age": 35,
+				"name": "yqx_cn"
+			}
+		})
+		var app5 = new Vue({
+			el: "#app-5",
+			data: {
+				people: [{
+					name: "霍建华",
+					age: 38,
+					sex: "男"
+				},{
+					name: "胡歌",
+					age: 35,
+					sex: "男"
+				},{
+					name: "周星驰",
+					age: 60,
+					sex: "男"
+				},{
+					name: "郭芙蓉",
+					age: 29,
+					sex: "女"
+				}],
+				className: "demo-table-wrap"
+			}
+		})
+		var app6 = new Vue({
+			el: "#app-6",
+			data: {
+				message: "hello vue.js",
+				button1: "buttonOne",
+				button2: "buttonTwo"
+			},
+			methods: {
+                functionButton1: function(){
+                	alert(this.message);
+                },
+                functionButton2: function(msg){
+                	alert(msg);
+                }
+			}
+		})
+        
+        var personData = [
+                {name: "佟湘玉",age: 28,sex: "女"},
+                {name: "郭芙蓉",age: 23,sex: "女"},
+                {name: "白展堂",age: 28,sex: "男"},
+                {name: "吕秀才",age: 24,sex: "男"},
+                {name: "李大嘴",age: 29,sex: "男"},
+                {name: "莫小贝",age: 12,sex: "女"},
+                {name: "祝无双",age: 23,sex: "女"},
+                {name: "邢捕头",age: 30,sex: "男"},
+                {name: "燕小六",age: 20,sex: "男"},
+                {name: "钱掌柜",age: 30,sex: "男"},
+                {name: "钱夫人",age: 28,sex: "女"}
+            ];
+		var appDemo = new Vue({
+			el: "#app-demo1",
+			data: {
+				className: "demo-table-wrap",
+				newPeople: {
+					name: "",
+					age: "",
+					sex: ""
+				},
+				person: personData
+			},
+			methods: {
+				creatPerson: function(){
+					if(this.newPeople.name==""){
+						alert("请输入姓名");
+						return false;
+					}
+					if(this.newPeople.age==""){
+						alert("请输入年龄");
+						return false;
+					}
+					if(this.newPeople.sex==""){
+						alert("请选择性别");
+						return false;
+					}
+                    this.person.push(this.newPeople);
+                    this.newPeople={name:"",age:"",sex:""};
+				},
+				deletePerson: function(index){
+					this.person.splice(index,1);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

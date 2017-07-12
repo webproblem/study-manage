@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-组件</title>
+	<link rel="stylesheet" href="">
+	<script src="./vue2x.js"></script>
+	<!-- <script src="./vue1.0.25.js"></script> -->
+</head>
+<body>
+    <div id="app">
+        <!-- 3. #app是Vue实例挂载的元素，应该在挂载元素范围内使用组件-->
+    	<my-component></my-component>
+    </div>
+    <div id="app-custom">
+    	<my-components></my-components>
+    </div>
+    <script>
+       // (function(){
+        	/*
+	         * 这是全局组件
+	        */
+	        // 1.创建一个组件构造器， 2.0之前的写法
+	        /*var myComponent = Vue.extend({
+	        	template: "<div>This is my first component</div>"
+	        });*/
+	        // 2.注册组件，并指定组件的标签，组件的HTML标签为<my-component>
+	        //2.0版本的写法
+	        Vue.component("my-component", { 
+	        	template: "<div>This is my first component</div>"
+	        });
+	    	new Vue({
+	    		el: "#app"
+	    	})
+	    	/*
+	         * 这是局部组件
+	        */
+	        var Child = {
+			  template: '<div>A custom component!</div>'
+			}
+	        var appCustom = new Vue({
+	        	el: "#app-custom",
+	        	components: {
+	        		"my-components": Child
+	        	}
+	        })
+       // })()
+    </script>
+    <p>----------------------------------------------------------</p>
+    <div id="app-2">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>
+    <script>
+    	(function(){
+    		//data 必须是函数
+    		var data = { counter: 0 };
+    		Vue.component('simple-counter', {
+			  template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+			  data: function(){
+			  	return {counter: 0};
+			  }
+			})
+			new Vue({
+				el: "#app-2"
+			})
+    	})()
+    </script>
+    <p>----------------------------------------------------------</p>
+    <div id="app-3" :class="className">
+    	<ol>
+          <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>   
+        </ol>
+    </div>
+    <script>
+    	Vue.component("todo-item",{
+                props: ["todo"],
+                template: "<li>{{ todo.text }}</li>"
+            })
+            var app3 = new Vue({
+                el: "#app-3",
+                data: {
+                    className: "demo3",
+                    groceryList: [
+                        {text: "佟湘玉"},
+                        {text: "白展堂"},
+                        {text: "郭芙蓉"}
+                    ]
+                }
+            })
+    </script>
+    <p>----------------------------------------------------------</p>
+    <!-- <div id="todo-list-example">
+        <input 
+          v-model="newTodoText"
+          v-on:keyup.enter="addNewTodo"
+          placeholder="请添加" 
+        >
+        <ul>
+            <li
+              is="todo-item"
+              v-for="{todo, index} in todos"
+              v-bind:title="todo"
+              v-on:remove="todos.splice(index,1)"
+            ></li>
+        </ul>
+    </div> -->
+    <div id="todo-list-example">
+  <input
+    v-model="newTodoText"
+    v-on:keyup.enter="addNewTodo"
+    placeholder="Add a todo"
+  >
+  <ul>
+    <li
+      is="todo-item"
+      v-for="(todo, index) in todos"
+      v-bind:title="todo"
+      v-on:remove="todos.splice(index, 1)"
+    ></li>
+  </ul>
+</div>
+    <script>
+        Vue.component("todo-item",{
+            template: '<li>{{title}} <button v-on:click="$emit(\'remove\')">X</button></li>',
+            props: ['title']
+        })
+        new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [
+                    '郭芙蓉',
+                    '佟湘玉',
+                    '白展堂'
+                ]
+            },
+            methods: {
+                addNewTodo: function(){
+                    this.todos.push(this.newTodoText);
+                    this.newTodoText = '';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

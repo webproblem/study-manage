@@ -1,0 +1,24 @@
+*{padding: 0;margin: 0;}
+table{border-collapse: collapse;border-spacing: 0;}
+.demo-table-wrap{width: 500px;margin-left: 100px;margin-bottom: 30px;}
+.demo-table-wrap table{width: 100%;}
+.demo-table-wrap tr,.demo-table-wrap td,.demo-table-wrap th{border: 1px solid #ccc;}
+.demo-table-wrap table thead{background-color:red;color: #fff;}
+.demo-table-wrap tr{height: 40px;}
+.demo-table-wrap table td >span{padding-left: 8px; }
+.demo-text-center{text-align: center;}
+
+#app-demo1 .form-group{height: 40px;margin-bottom: 15px;}
+#app-demo1 .form-group input{height: 30px;}
+#app-demo1 .form-group select{width: 70px;height: 30px;}
+#app-demo1 .demo1-creat-wrap label{margin-right: 6px;width: 80px;display: inline-block;}
+.demo1-creat-wrap{margin-bottom: 30px;}
+.button-wrap button{
+	outline: none;
+    padding: 5px 8px;
+    color: #fff;
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    background-color: #009A61;
+    cursor: pointer;
+}
